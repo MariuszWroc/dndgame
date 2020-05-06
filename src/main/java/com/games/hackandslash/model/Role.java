@@ -15,7 +15,6 @@ import lombok.Data;
 public class Role {
     @Id
     @Basic(optional = false)
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Basic(optional = false)

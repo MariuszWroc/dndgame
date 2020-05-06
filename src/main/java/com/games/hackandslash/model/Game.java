@@ -23,7 +23,6 @@ import lombok.Data;
 public class Game {
 	@Id
 	@Basic(optional = false)
-	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;

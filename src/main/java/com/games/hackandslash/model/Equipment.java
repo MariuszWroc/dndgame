@@ -24,7 +24,6 @@ import lombok.Data;
 public class Equipment {
 	@Id
 	@Basic(optional = false)
-	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "equipment", fetch = FetchType.LAZY)
