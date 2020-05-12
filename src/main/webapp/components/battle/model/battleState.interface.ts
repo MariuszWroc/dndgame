@@ -5,7 +5,7 @@ export interface IBattleState {
   opponentHeroes: IHero[];
 }
 
-export interface IProps {
+export interface IBattleProps {
   giveUp: (content: any) => void;
   endTurn: (content: any) => void;
   getPlayerAndOpponentHeroes: () => void;

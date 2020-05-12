@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import styles from './battle.module.scss';
 import { getPlayerAndOpponentHeroes } from './redux/selector.actions';
-import { IBattleState, IProps } from './model/battleState.interface';
+import { IBattleState, IBattleProps } from './model/battleState.interface';
 
-function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPlayerAndOpponentHeroes }: IProps & IBattleState) {
+function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPlayerAndOpponentHeroes }: IBattleProps & IBattleState) {
   const dispatch = useDispatch();
   useEffect(() => {
     getPlayerAndOpponentHeroes()
