@@ -1,3 +1,4 @@
-src/main/webapp/node_modules
-src/main/webapp/build
+.idea
+node_modules
+build
 target
