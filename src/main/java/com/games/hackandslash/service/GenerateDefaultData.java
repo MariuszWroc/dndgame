@@ -1,16 +1,18 @@
 package com.games.hackandslash.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.games.hackandslash.model.Item;
+import com.games.hackandslash.model.Profession;
+import com.games.hackandslash.model.RoleName;
+import com.games.hackandslash.model.User;
+import com.games.hackandslash.repository.ItemRepository;
+import com.games.hackandslash.repository.ProfessionRepository;
+import com.games.hackandslash.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.games.hackandslash.model.Profession;
-import com.games.hackandslash.repository.ItemRepository;
-import com.games.hackandslash.repository.ProfessionRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GenerateDefaultData implements InitializingBean {
@@ -18,6 +20,8 @@ public class GenerateDefaultData implements InitializingBean {
     ProfessionRepository professionRepository;
     @Autowired
     ItemRepository itemRepository;
+	@Autowired
+	UserRepository userRepository;
 
     public void generateProfessions() {
         List<Profession> entities = new ArrayList<>();
@@ -44,9 +48,20 @@ public class GenerateDefaultData implements InitializingBean {
 		itemRepository.saveAll(entities);
 	}
 
+	public void generateUsers() {
+		List<User> entities = new ArrayList<>();
+		entities.add(User.builder().activated(true).email("mariusz@mariusz.pl").firstname("Mariusz").lastname("Czarny")
+				.login("mczarny").role(RoleName.ADMIN).password("alamakota").build());
+		entities.add(User.builder().activated(true).email("jacek@jacek.pl").firstname("Jacek").lastname("Bednarczyk")
+				.login("jbednarczyk").role(RoleName.ADMIN).password("alamakota").build());
+
+		userRepository.saveAll(entities);
+	}
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		generateProfessions();
 		generateItems();
+		generateUsers();
 	}
 }

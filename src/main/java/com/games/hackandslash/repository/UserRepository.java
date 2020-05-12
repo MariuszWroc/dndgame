@@ -1,10 +1,8 @@
 package com.games.hackandslash.repository;
 
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.PagingAndSortingRepository;
-
 import com.games.hackandslash.model.User;
+import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends PagingAndSortingRepository<User, Long>, QuerydslPredicateExecutor<User> {
-
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findUserByLogin(String login);
 }

@@ -1,23 +1,12 @@
 package com.games.hackandslash.model;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
+
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
 
 /**
  *
@@ -25,6 +14,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@Builder
 public class User {
     @Id
     @Basic(optional = false)
@@ -51,9 +41,8 @@ public class User {
     @Basic(optional = false)
     @Column(nullable = false)
     private Boolean activated;
-    @JoinColumn(name = "Role_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 }
