@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import HeroRow from './heroRow';
+import { IHero } from '../model/hero.interface';
 
 const styling = makeStyles({
   fullTable: {
@@ -15,7 +16,7 @@ const styling = makeStyles({
   }
 });
 
-export default function HeroTable({heroes, isOpponent}: { heroes: {[key: string]: any}, isOpponent: string }) {
+export default function HeroTable({heroes, activeIndex, isOpponent}: { heroes: IHero[], activeIndex: number, isOpponent: boolean }) {
   const tableStyle = styling();
 
   return <TableContainer component={Paper}>
@@ -23,12 +24,11 @@ export default function HeroTable({heroes, isOpponent}: { heroes: {[key: string]
       <TableHead>
         <TableRow>
           <TableCell>Hero name</TableCell>
-          <TableCell align="right">profession</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {heroes.map((hero: {[key: string]: any}) => (
-          <HeroRow id={hero.id} name={hero.name} proffesion={hero.proffesion}/>
+        {heroes.map((hero, index) => (
+          <HeroRow hero={hero} isActive={activeIndex === index} isOpponent={isOpponent}/>
         ))}
       </TableBody>
     </Table>

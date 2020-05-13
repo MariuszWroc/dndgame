@@ -1,21 +1,27 @@
-import { IBattleState } from '../model/battleState.interface';
-import { END_TURN, GIVE_UP, UPDATE_DATA } from './Action.types';
+import { IBattleState } from '../model/stateAndProps.interface';
+import { END_TURN, GIVE_UP, IBattleActions, UPDATE_DATA } from './Action.types';
+import { IHero } from '../model/hero.interface';
 
 const initialState: IBattleState = {
   playerHeroes: [],
   opponentHeroes: []
 }
 
-export default function (state = initialState, action: any) {
+export default function (state = initialState, action: IBattleActions) {
   switch(action.type) {
     case UPDATE_DATA:
-      console.log(action, state);
-      const [plHeroes, opHeroes] = action.payload;
+      let [playerHeroes, opponentHeroes] : [IHero[], IHero[]] = action.payload as [IHero[], IHero[]];
+
+      playerHeroes = playerHeroes.sort(
+        (a, b) => b.speed - a.speed);
+
+      opponentHeroes = opponentHeroes.sort(
+        (a, b) => b.speed - a.speed);
 
       return {
         ...state,
-        playerHeroes: [...state.playerHeroes, ...plHeroes],
-        opponentHeroes: [...state.opponentHeroes, ...opHeroes],
+        playerHeroes,
+        opponentHeroes,
       }
     case END_TURN:
       alert(action.payload)

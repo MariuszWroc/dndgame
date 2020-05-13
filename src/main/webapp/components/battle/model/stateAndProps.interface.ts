@@ -10,3 +10,13 @@ export interface IBattleProps {
   endTurn: (content: any) => void;
   getPlayerAndOpponentHeroes: () => void;
 }
+
+export interface IHeroRowProps {
+  hero: IHero;
+  isActive: boolean;
+  isOpponent: boolean;
+}
+
+export interface IHeroDetailsProps {
+  hero: IHero;
+}

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import styles from './battle.module.scss';
 import { getPlayerAndOpponentHeroes } from './redux/selector.actions';
-import { IBattleState, IBattleProps } from './model/battleState.interface';
+import { IBattleState, IBattleProps } from './model/stateAndProps.interface';
 
 function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPlayerAndOpponentHeroes }: IBattleProps & IBattleState) {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPl
       <Grid className={styles.gameArea} container>
         <Grid item xs={6}>
           <Paper>
-            <HeroTable heroes={playerHeroes} isOpponent="false"/>
+            <HeroTable heroes={playerHeroes} activeIndex={0} isOpponent={false}/>
           </Paper>
         </Grid>
         <Grid item xs={3}>
@@ -30,7 +30,7 @@ function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPl
         </Grid>
         <Grid item xs={3}>
           <Paper>
-            <HeroTable heroes={opponentHeroes} isOpponent="true"/>
+            <HeroTable heroes={opponentHeroes} activeIndex={-1} isOpponent={true}/>
           </Paper>
         </Grid>
       </Grid>
@@ -52,12 +52,11 @@ function BattleComponent ({ playerHeroes, opponentHeroes, giveUp, endTurn, getPl
   )
 }
 
-const mapStateToProps = (state: { battle: IBattleState }) => {
-  console.log(state, 'State update');
-  const { playerHeroes, opponentHeroes } = state.battle;
+const mapStateToProps = ({ battle, ...appState }: { battle: IBattleState }) => { // in truth this is application state not component state ;)
+  const { playerHeroes, opponentHeroes } = battle;
 
   return {
-    ...state,
+    ...appState,
     playerHeroes: playerHeroes ?? [],
     opponentHeroes: opponentHeroes ?? []
   }
