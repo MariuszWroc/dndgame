@@ -1,25 +1,20 @@
 package com.games.hackandslash.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Size;
+import lombok.*;
 
-import lombok.Data;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author mariusz
  */
 @Entity
-@Data
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class Hero {
     @Id
     @Basic(optional = false)

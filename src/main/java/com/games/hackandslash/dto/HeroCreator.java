@@ -2,13 +2,15 @@ package com.games.hackandslash.dto;
 
 import com.games.hackandslash.model.Item;
 import com.games.hackandslash.model.Profession;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Builder
-@Data
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class HeroCreator {
     private Integer speed;
     private String name;

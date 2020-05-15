@@ -1,7 +1,6 @@
 package com.games.hackandslash.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,14 +12,18 @@ import javax.validation.constraints.Size;
  * @author mariusz
  */
 @Entity
-@Data
-@Builder
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
+@ToString
 public class User {
     @Id
     @Basic(optional = false)
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Size(max = 45)
     private String firstname;
     @Size(max = 45)

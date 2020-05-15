@@ -1,10 +1,13 @@
 package com.games.hackandslash.dto;
 
 import com.games.hackandslash.model.Category;
+import lombok.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class ItemDto {
     private String name;
     private Category category;

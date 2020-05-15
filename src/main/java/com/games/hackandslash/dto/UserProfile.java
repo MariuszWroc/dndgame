@@ -1,10 +1,13 @@
 package com.games.hackandslash.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Builder
-@Data
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
+@ToString
 public class UserProfile {
     private String firstname;
     private String lastname;

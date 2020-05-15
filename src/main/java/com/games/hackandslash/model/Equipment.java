@@ -5,22 +5,22 @@
  */
 package com.games.hackandslash.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import lombok.Builder;
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author mariusz
  */
 @Entity
-@Data
-@Builder
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 public class Equipment {
 	@Id
 	@Basic(optional = false)

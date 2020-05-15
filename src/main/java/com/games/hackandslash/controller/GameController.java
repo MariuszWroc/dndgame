@@ -18,14 +18,4 @@ public class GameController {
 
     };
 
-    @PostMapping()
-    public void join() {
-
-    }
-
-    @PostMapping()
-    public void stop() {
-
-    }
-
 }
