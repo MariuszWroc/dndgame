@@ -1,8 +1,10 @@
 package com.games.hackandslash.controller;
 
+import com.games.hackandslash.dto.UserProfile;
 import com.games.hackandslash.mapper.UserMapper;
 import com.games.hackandslash.model.User;
 import com.games.hackandslash.repository.UserRepository;
+import com.games.hackandslash.util.StreamHelper;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class UserController extends UserMapper {
@@ -25,9 +31,24 @@ public class UserController extends UserMapper {
         return userRepository.findByLogin(CURRENT_LOGIN_MOCK);
     }
 
+    @GetMapping("/users")
+    public List<UserProfile> findAllUsers(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users.stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/filteredusers")
-    public Iterable<User> getUsersByQuerydslPredicate(@QuerydslPredicate(root = User.class) Predicate predicate) {
-        return userRepository.findAll(predicate);
+    public Iterable<UserProfile> getUsersByQuerydslPredicate(@QuerydslPredicate(root = User.class) Predicate predicate) {
+        Iterable<User> users = userRepository.findAll(predicate);
+        StreamHelper.getStreamFromIterable(users).forEach(System.out::println);
+        Stream<UserProfile> iterator = StreamHelper.getStreamFromIterable(users)
+                .map(this::entityToDto);
+        List<UserProfile> list = StreamHelper.getStreamFromIterable(users)
+                .map(this::entityToDto).collect(Collectors.toList());
+        list.forEach(System.out::println);
+        return StreamHelper.getIterableFromStream(iterator);
     }
 
     @GetMapping("/sortedusers")

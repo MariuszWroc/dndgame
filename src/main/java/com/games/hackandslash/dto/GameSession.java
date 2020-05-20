@@ -2,6 +2,8 @@ package com.games.hackandslash.dto;
 
 import lombok.*;
 
+import java.util.Set;
+
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -9,10 +11,8 @@ import lombok.*;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class UserProfile {
-    private String firstname;
-    private String lastname;
-    private String login;
-    private String password;
-    private String email;
+public class GameSession {
+    private Set<UserProfile> availableUsers;
+    private String name;
+    private String status;
 }

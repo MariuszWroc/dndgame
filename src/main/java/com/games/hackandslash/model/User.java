@@ -13,10 +13,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
+@EqualsAndHashCode
 @ToString
 public class User {
     @Id

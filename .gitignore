@@ -2,3 +2,11 @@
 node_modules
 build
 target
+.classpath
+.settings/
+.gitignore
+.project
+.mvn/
+HELP.md
+mvnw.cmd
+mvn::w

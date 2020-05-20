@@ -12,10 +12,12 @@ import java.util.List;
  */
 @Entity
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Item {
     @Id
     @Basic(optional = false)

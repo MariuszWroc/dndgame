@@ -4,10 +4,12 @@ import com.games.hackandslash.model.Category;
 import lombok.*;
 
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
+@ToString
+@EqualsAndHashCode
 public class ItemDto {
     private String name;
     private Category category;

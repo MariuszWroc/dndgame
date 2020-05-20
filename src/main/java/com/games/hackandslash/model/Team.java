@@ -7,10 +7,12 @@ import java.util.Set;
 
 @Entity
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Team {
     @Id
     @Basic(optional = false)

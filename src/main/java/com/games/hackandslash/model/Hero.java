@@ -11,10 +11,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Hero {
     @Id
     @Basic(optional = false)
@@ -31,9 +33,8 @@ public class Hero {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer gender;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer race;
+    @Enumerated(EnumType.STRING)
+    private Race race;
     @JoinColumn(name = "Profession_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Profession profession;
