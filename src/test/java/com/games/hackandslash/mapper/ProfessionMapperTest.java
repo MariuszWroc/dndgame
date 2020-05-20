@@ -4,9 +4,11 @@ import com.games.hackandslash.dto.ProfessionDto;
 import com.games.hackandslash.model.Profession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProfessionMapperTest {
     private ProfessionMapper mapper = new ProfessionMapper();
     protected ProfessionDto ProfessionDtoMock;
