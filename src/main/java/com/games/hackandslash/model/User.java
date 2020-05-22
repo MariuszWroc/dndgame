@@ -1,5 +1,7 @@
 package com.games.hackandslash.model;
 
+import com.games.hackandslash.common.RoleName;
+import com.games.hackandslash.common.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;

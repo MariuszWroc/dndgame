@@ -1,6 +1,6 @@
 package com.games.hackandslash.util;
 
-import com.games.hackandslash.model.RoleName;
+import com.games.hackandslash.common.RoleName;
 import com.games.hackandslash.model.User;
 
 public enum DefaultUser {

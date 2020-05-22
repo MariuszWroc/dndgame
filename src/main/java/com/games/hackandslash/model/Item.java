@@ -1,5 +1,6 @@
 package com.games.hackandslash.model;
 
+import com.games.hackandslash.common.Category;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,5 +1,7 @@
 package com.games.hackandslash.model;
 
+import com.games.hackandslash.common.Gender;
+import com.games.hackandslash.common.Race;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,12 +32,11 @@ public class Hero {
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
     private String name;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Integer gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @Enumerated(EnumType.STRING)
     private Race race;
-    @JoinColumn(name = "Profession_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "profession_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Profession profession;
     @Basic(optional = false)
@@ -47,10 +48,10 @@ public class Hero {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer baseAC;
-    @JoinColumn(name = "Equipment_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false)
     @OneToOne
     private Equipment equipment;
-    @JoinColumn(name = "Team_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Team team;
 }

@@ -25,6 +25,6 @@ public class Team {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team", fetch = FetchType.LAZY)
     private Set<Hero> heroes;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "User_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

@@ -1,6 +1,6 @@
 package com.games.hackandslash.dto;
 
-import com.games.hackandslash.model.Category;
+import com.games.hackandslash.common.Category;
 import lombok.*;
 
 @Builder(toBuilder = true)
