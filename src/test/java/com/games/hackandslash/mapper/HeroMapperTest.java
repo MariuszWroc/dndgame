@@ -10,13 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HeroMapperTest {
-    private HeroMapper mapper = new HeroMapper();
+    private HeroMapper mapper;
     protected HeroCreator heroCreatorMock;
     protected Hero heroMock;
 
     @BeforeAll
     public void setup(){
         mapper = new HeroMapper();
+        heroCreatorMock = new HeroCreator();
+        heroMock = new Hero();
     }
 
     @Test
@@ -28,6 +30,6 @@ public class HeroMapperTest {
     @Test
     public void entityToDto() {
         HeroCreator heroCreator = mapper.entityToDto(heroMock);
-        assertEquals(heroCreator, heroMock);
+        assertEquals(heroCreator, heroCreatorMock);
     }
 }
