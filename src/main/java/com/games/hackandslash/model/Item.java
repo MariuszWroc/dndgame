@@ -4,8 +4,7 @@ import com.games.hackandslash.common.Category;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -17,13 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 public class Item {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
     private String name;
@@ -39,5 +37,5 @@ public class Item {
     private Integer addIntelligence;
     private Integer amount;
     @ManyToMany(mappedBy = "items")
-    private List<Equipment> equipments = new ArrayList<>();
+    private Set<Hero> hero;
 }

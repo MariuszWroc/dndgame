@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,7 +26,7 @@ public class Hero {
     @Basic(optional = false)
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer speed;
@@ -37,7 +39,7 @@ public class Hero {
     @Enumerated(EnumType.STRING)
     private Race race;
     @JoinColumn(name = "profession_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Profession profession;
     @Basic(optional = false)
     @Column(nullable = false)
@@ -48,9 +50,11 @@ public class Hero {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer baseAC;
-    @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false)
-    @OneToOne
-    private Equipment equipment;
+    @JoinTable(name = "equipment",
+            joinColumns = @JoinColumn(name = "hero_id", referencedColumnName = "id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false, updatable = false))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Item> items = new ArrayList<>();
     @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Team team;

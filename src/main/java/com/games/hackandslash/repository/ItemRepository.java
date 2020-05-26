@@ -1,10 +1,9 @@
 package com.games.hackandslash.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.games.hackandslash.model.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface ItemRepository extends CrudRepository<Item, Long>{
-
+public interface ItemRepository extends JpaRepository<Item, Long> {
+    Item findByName(String name);
 }

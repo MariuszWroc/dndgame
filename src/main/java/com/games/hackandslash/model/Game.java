@@ -12,13 +12,12 @@ import java.util.Map;
 @NoArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 public class Game {
 	@Id
 	@Basic(optional = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String name;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_team_mapping", 

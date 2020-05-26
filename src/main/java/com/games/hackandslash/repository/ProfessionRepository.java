@@ -1,9 +1,8 @@
 package com.games.hackandslash.repository;
 
+import com.games.hackandslash.model.Profession;
 import org.springframework.data.repository.CrudRepository;
 
-import com.games.hackandslash.model.Profession;
-
-public interface ProfessionRepository extends CrudRepository<Profession, Long>{
-
+public interface ProfessionRepository extends CrudRepository<Profession, Long> {
+    Profession findByName(String name);
 }

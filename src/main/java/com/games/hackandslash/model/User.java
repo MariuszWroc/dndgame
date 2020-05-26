@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode
 @ToString
 public class User {
     @Id
