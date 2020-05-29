@@ -1,11 +1,8 @@
 package com.games.hackandslash.model;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Builder(toBuilder = true)
@@ -24,7 +21,7 @@ public class Profession {
     private Integer dexterity;
     private Integer constitution;
     private Integer intelligence;
-    @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY)
-    private List<Hero> heroes;
+//    @Fetch(FetchMode.SELECT)
+//    @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY)
+//    private List<Hero> heroes;
 }

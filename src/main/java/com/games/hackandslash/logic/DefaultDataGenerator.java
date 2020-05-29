@@ -2,13 +2,12 @@ package com.games.hackandslash.logic;
 
 import com.games.hackandslash.common.GameStatus;
 import com.games.hackandslash.model.*;
-import com.games.hackandslash.service.*;
+import com.games.hackandslash.repository.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.games.hackandslash.util.DefaultHero.LADY_ARIBETH;
 import static com.games.hackandslash.util.DefaultHero.SAVEROK;
@@ -22,17 +21,17 @@ import static com.games.hackandslash.util.DefaultUser.MCZARNY;
 @Component
 public class DefaultDataGenerator implements InitializingBean {
     @Autowired
-	ProfessionService professionService;
+	ProfessionRepository professionRepository;
     @Autowired
-	ItemService itemService;
+	ItemRepository itemRepository;
 	@Autowired
-	UserService userService;
+	UserRepository userRepository;
 	@Autowired
-	HeroService heroService;
+	HeroRepository heroRepository;
 	@Autowired
-	TeamService teamService;
+	TeamRepository teamRepository;
 	@Autowired
-	GameService gameService;
+	GameRepository gameRepository;
 
 	public List<Profession> generateProfessions() {
         List<Profession> entities = new ArrayList<>();
@@ -41,7 +40,7 @@ public class DefaultDataGenerator implements InitializingBean {
 		entities.add(WARRIOR.getProfession());
 		entities.add(WIZARD.getProfession());
 
-		professionService.addAll(entities);
+		professionRepository.saveAll(entities);
 
 		return entities;
     }
@@ -58,7 +57,7 @@ public class DefaultDataGenerator implements InitializingBean {
 		entities.add(MAGIC_BULLET.getItem());
 		entities.add(HEALING.getItem());
 
-		itemService.addAll(entities);
+		itemRepository.saveAll(entities);
 
 		return entities;
 	}
@@ -68,37 +67,46 @@ public class DefaultDataGenerator implements InitializingBean {
 		entities.add(MCZARNY.getUser());
 		entities.add(JBEDNARCZYK.getUser());
 
-		userService.addAll(entities);
+		userRepository.saveAll(entities);
 
 		return entities;
 	}
 
 	public List<Team> generateTeams() {
 		List<Team> entities = new ArrayList<>();
-		User mczarny = userService.findByLogin("mczarny");
-		entities.add(TEAM_ONE.getTeam(mczarny));
-		User jbednarczyk = userService.findByLogin("jbednarczyk");
-		entities.add(TEAM_TWO.getTeam(jbednarczyk));
+		entities.add(TEAM_ONE.getTeam(generateTeamOne()));
+		entities.add(TEAM_TWO.getTeam(generateTeamTwo()));
 
-		teamService.addAll(entities);
+		teamRepository.saveAll(entities);
 
 		return entities;
 	}
 
-	public void generateGame() {
-		gameService.add(Game.builder().gameStatus(GameStatus.START).name("test").build());
+	public void generateGame(User user, Team team) {
+		Map<User, Team> userToTeam = new HashMap<>();
+		userToTeam.put(user, team);
+		gameRepository.save(Game.builder().gameStatus(GameStatus.START).name("test")
+				.userToTeamMap(userToTeam).build());
 	}
 
-	public void generateHeroes() {
-		List<Hero> entities = new ArrayList<>();
-		Profession warrior = professionService.findByName("Warrior");
-		Team teamOne = teamService.findByUserLogin("mczarny");
-		entities.add(SAVEROK.getHero(warrior, teamOne, getSaverokEquipment()));
-		Profession paladin = professionService.findByName("Paladin");
-		Team teamTwo = teamService.findByUserLogin("jbednarczyk");
-		entities.add(LADY_ARIBETH.getHero(paladin, teamTwo, getAribethEquipment()));
+	public Set<Hero> generateTeamOne() {
+		Set<Hero> entities = new HashSet<>();
+		Profession warrior = professionRepository.findByName("Warrior");
+		entities.add(SAVEROK.getHero(warrior, getSaverokEquipment()));
 
-		heroService.addAll(entities);
+		heroRepository.saveAll(entities);
+
+		return entities;
+	}
+
+	public Set<Hero> generateTeamTwo() {
+		Set<Hero> entities = new HashSet<>();
+		Profession paladin = professionRepository.findByName("Paladin");
+		entities.add(LADY_ARIBETH.getHero(paladin, getAribethEquipment()));
+
+		heroRepository.saveAll(entities);
+
+		return entities;
 	}
 
 	@Override
@@ -107,12 +115,12 @@ public class DefaultDataGenerator implements InitializingBean {
 		List<Item> items = generateItems();
 		List<User> users = generateUsers();
 		List<Team> teams = generateTeams();
-		generateGame();
-		generateHeroes();
+		generateGame(users.get(0), teams.get(0));
+		generateGame(users.get(1), teams.get(1));
 	}
 
 	private Item getItem(String name) {
-		return itemService.findByName(name);
+		return itemRepository.findByName(name);
 	}
 
 	private List<Item> getSaverokEquipment() {

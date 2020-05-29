@@ -20,7 +20,7 @@ public class ProfessionMapperTest {
         ProfessionDtoMock = ProfessionDto.builder().name("Warrior").strength(18).dexterity(14).constitution(16)
         .intelligence(11).build();
         ProfessionMock = Profession.builder().id(null).name("Warrior").strength(18).dexterity(14).constitution(16)
-                .intelligence(11).heroes(null).build();
+                .intelligence(11).build();
     }
 
     @Test

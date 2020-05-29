@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 public class User {
     @Id
     @Basic(optional = false)

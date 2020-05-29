@@ -22,7 +22,7 @@ public class HeroController {
     HeroMapper heroMapper;
 
     @GetMapping("/{id}")
-    public HeroCreator findUserByLogin(Long id) {
+    public HeroCreator findHeroByUserLogin(Long id) {
         Optional<Hero> hero = heroRepository.findById(id);
         return heroMapper.entityToDto(hero.get());
     }

@@ -19,7 +19,7 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_team_mapping", 
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id")},
       inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})

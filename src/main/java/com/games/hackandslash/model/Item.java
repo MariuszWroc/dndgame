@@ -4,7 +4,6 @@ import com.games.hackandslash.common.Category;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  *
@@ -36,6 +35,4 @@ public class Item {
     private Integer addConstitution;
     private Integer addIntelligence;
     private Integer amount;
-    @ManyToMany(mappedBy = "items")
-    private Set<Hero> hero;
 }
