@@ -10,5 +10,8 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Battle {
-    private Integer round;
+    private String userLogin;
+    private Long heroId;
+    private String command;
+    private Long enemyHeroId;
 }

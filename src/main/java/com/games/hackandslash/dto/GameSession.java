@@ -1,11 +1,18 @@
 package com.games.hackandslash.dto;
 
-import java.util.Set;
+import lombok.*;
 
-public class GameSession extends GameCreator{
-    private Set<String> allAvailablePlayers;
-    private Set<String> allAvailableGames;
-    private String ownerPlayer;
-    private String fellowPlayer;
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
+@EqualsAndHashCode
+public class GameSession {
+    private String name;
+    private String ownerLogin;
+    private String fellowLogin;
     private String status;
+    private Integer round = 0;
 }

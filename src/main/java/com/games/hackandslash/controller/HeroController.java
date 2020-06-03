@@ -1,11 +1,12 @@
 package com.games.hackandslash.controller;
 
-import com.games.hackandslash.dto.HeroCreator;
+import com.games.hackandslash.dto.HeroCharacter;
 import com.games.hackandslash.mapper.HeroMapper;
 import com.games.hackandslash.model.Hero;
 import com.games.hackandslash.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,11 +20,12 @@ public class HeroController {
     HeroRepository heroRepository;
 
     @Autowired
-    HeroMapper heroMapper;
+    HeroMapper mapper;
 
     @GetMapping("/{id}")
-    public HeroCreator findHeroByUserLogin(Long id) {
+    public HeroCharacter findHeroById(@PathVariable("id") Long id) {
         Optional<Hero> hero = heroRepository.findById(id);
-        return heroMapper.entityToDto(hero.get());
+        HeroCharacter heroCharacter = mapper.entityToDto(hero.get());
+        return heroCharacter;
     }
 }

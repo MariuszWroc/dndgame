@@ -14,11 +14,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -27,13 +29,13 @@ public class UserController {
     @Autowired
     UserMapper mapper;
 
-    @GetMapping("/myuser")
+    @GetMapping("/my")
     public UserProfile findUserByLogin() {
         User user = repository.findByLogin(MyUserMock.CURRENT_LOGIN_MOCK.getLogin());
         return mapper.entityToDto(user);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     public Iterable<UserProfile> getAll(@QuerydslPredicate(root = User.class) Predicate predicate) {
         Iterable<User> users = repository.findAll(predicate);
         Stream<UserProfile> iterator = StreamHelper.getStreamFromIterable(users)
@@ -41,7 +43,7 @@ public class UserController {
         return StreamHelper.getIterableFromStream(iterator);
     }
 
-    @GetMapping("/sortedusers")
+    @GetMapping("/sorted")
     public Page<UserProfile> getUsersSortedByLogin() {
         Pageable pageable = PageRequest.of(0, 5, Sort.by("login"));
         Page<User> users = repository.findAll(pageable);

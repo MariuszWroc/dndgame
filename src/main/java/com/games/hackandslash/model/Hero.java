@@ -55,7 +55,4 @@ public class Hero {
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false, updatable = false))
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private List<Item> items = new ArrayList<>();
-//    @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false)
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-//    private Team team;
 }

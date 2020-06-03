@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class HeroCreator {
+public class HeroCharacter {
     private String name;
     private String gender;
     private String race;

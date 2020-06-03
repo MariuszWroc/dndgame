@@ -1,6 +1,6 @@
 package com.games.hackandslash.mapper;
 
-import com.games.hackandslash.dto.HeroCreator;
+import com.games.hackandslash.dto.HeroCharacter;
 import com.games.hackandslash.model.Hero;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,25 +11,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HeroMapperTest {
     private HeroMapper mapper;
-    protected HeroCreator heroCreatorMock;
+    protected HeroCharacter heroCharacterMock;
     protected Hero heroMock;
 
     @BeforeAll
     public void setup(){
         mapper = new HeroMapper();
-        heroCreatorMock = new HeroCreator();
+        heroCharacterMock = new HeroCharacter();
         heroMock = new Hero();
     }
 
     @Test
     public void dtoToEntity() {
-        Hero hero = mapper.dtoToEntity(heroCreatorMock);
+        Hero hero = mapper.dtoToEntity(heroCharacterMock);
         assertEquals(hero, heroMock);
     }
 
     @Test
     public void entityToDto() {
-        HeroCreator heroCreator = mapper.entityToDto(heroMock);
-        assertEquals(heroCreator, heroCreatorMock);
+        HeroCharacter heroCharacter = mapper.entityToDto(heroMock);
+        assertEquals(heroCharacter, heroCharacterMock);
     }
 }

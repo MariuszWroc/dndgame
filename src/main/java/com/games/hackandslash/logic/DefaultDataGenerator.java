@@ -72,21 +72,19 @@ public class DefaultDataGenerator implements InitializingBean {
 		return entities;
 	}
 
-	public List<Team> generateTeams() {
+	public List<Team> generateTeams(List<User> users) {
 		List<Team> entities = new ArrayList<>();
-		entities.add(TEAM_ONE.getTeam(generateTeamOne()));
-		entities.add(TEAM_TWO.getTeam(generateTeamTwo()));
+		entities.add(TEAM_ONE.getTeam(generateTeamOne(), users.get(0)));
+		entities.add(TEAM_TWO.getTeam(generateTeamTwo(), users.get(1)));
 
 		teamRepository.saveAll(entities);
 
 		return entities;
 	}
 
-	public void generateGame(User user, Team team) {
-		Map<User, Team> userToTeam = new HashMap<>();
-		userToTeam.put(user, team);
-		gameRepository.save(Game.builder().gameStatus(GameStatus.START).name("test")
-				.userToTeamMap(userToTeam).build());
+	public void generateGame(User owner, User fellow, String name) {
+		gameRepository.save(Game.builder().gameStatus(GameStatus.START).name(name)
+				.owner(owner).fellow(fellow).build());
 	}
 
 	public Set<Hero> generateTeamOne() {
@@ -111,12 +109,12 @@ public class DefaultDataGenerator implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		List<Profession> professions = generateProfessions();
-		List<Item> items = generateItems();
+		generateProfessions();
 		List<User> users = generateUsers();
-		List<Team> teams = generateTeams();
-		generateGame(users.get(0), teams.get(0));
-		generateGame(users.get(1), teams.get(1));
+		generateItems();
+		generateGame(users.get(0), users.get(1), "test1");
+		generateGame(users.get(1), null, "test2");
+		generateTeams(users);
 	}
 
 	private Item getItem(String name) {

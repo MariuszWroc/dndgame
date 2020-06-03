@@ -2,7 +2,9 @@ package com.games.hackandslash.mapper;
 
 import com.games.hackandslash.dto.ProfessionDto;
 import com.games.hackandslash.model.Profession;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProfessionMapper implements DtoMapper<Profession, ProfessionDto> {
     @Override
     public Profession dtoToEntity(ProfessionDto dto) {

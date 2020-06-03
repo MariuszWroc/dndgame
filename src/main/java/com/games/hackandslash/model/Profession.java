@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 public class Profession {
     @Id
     @Basic(optional = false)
@@ -21,7 +22,4 @@ public class Profession {
     private Integer dexterity;
     private Integer constitution;
     private Integer intelligence;
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY)
-//    private List<Hero> heroes;
 }

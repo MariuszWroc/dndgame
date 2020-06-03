@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -40,17 +38,16 @@ public class GameController {
 
     @GetMapping("/my")
     public Game findGameByLogin() {
-        Game game = repository.findByUserLogin(MyUserMock.CURRENT_LOGIN_MOCK.getLogin());
+        Game game = repository.findByOwnerLogin(MyUserMock.CURRENT_LOGIN_MOCK.getLogin());
+        System.out.println(game);
         return game;
     }
 
     @GetMapping("/available")
     public Iterable<GameSession> getAvailableGames(@QuerydslPredicate(root = Game.class) Predicate predicate) {
-        Iterable<Game> games = repository.findAll(predicate);
+        Iterable<Game> games = repository.findAll();
         Stream<GameSession> iterator = StreamHelper.getStreamFromIterable(games)
-                .map(gameSessionMapper::entityToDto);
-        List<GameSession> list = StreamHelper.getStreamFromIterable(games)
-                .map(gameSessionMapper::entityToDto).collect(Collectors.toList());
+                .map(gameSessionMapper::entityToDto).distinct();
         return StreamHelper.getIterableFromStream(iterator);
     }
 
@@ -67,7 +64,7 @@ public class GameController {
     }
 
     @PostMapping("/join")
-    public GameCreator joinGame(String login) {
+    public GameSession joinGame(String login) {
         return null;
     }
 }

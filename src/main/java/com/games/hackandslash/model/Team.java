@@ -21,8 +21,10 @@ public class Team {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer money;
-//    @Fetch(FetchMode.JOIN)
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Set<Hero> heroes;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

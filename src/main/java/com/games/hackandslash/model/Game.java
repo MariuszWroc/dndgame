@@ -4,7 +4,6 @@ import com.games.hackandslash.common.GameStatus;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Map;
 
 @Entity
 @Builder(toBuilder = true)
@@ -19,12 +18,12 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_team_mapping", 
-      joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
-    @MapKeyJoinColumn(name = "user_id")
-    private Map<User, Team> userToTeamMap;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_owner_id", referencedColumnName = "id")
+    private User owner;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_fellow_id", referencedColumnName = "id")
+    private User fellow;
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 }
