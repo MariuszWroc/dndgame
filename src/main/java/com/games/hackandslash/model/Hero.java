@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.games.hackandslash.common.Category.*;
+
 /**
  *
  * @author mariusz
@@ -55,4 +57,33 @@ public class Hero {
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false, updatable = false))
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private List<Item> items = new ArrayList<>();
+
+
+    public Integer countAttack() {
+        int weaponPoints = items.stream().filter(x -> x.getCategory().equals(WEAPON)).findFirst().get().getAttack();
+        int strengthPoints = getProfession().getStrength();
+        return strengthPoints + weaponPoints;
+    }
+
+    public Integer countDefend() {
+        int armor = items.stream().filter(x -> x.getCategory().equals(ARMOR)).findFirst().get().getDefend();
+        int shield = items.stream().filter(x -> x.getCategory().equals(SHIELD)).findFirst().get().getDefend();
+        return getBaseAC() + armor + shield;
+    }
+
+    public void attack(Integer attackerPoints) {
+        int damage = countDefend() - attackerPoints;
+        int previousHP = currentHP;
+        if (damage < 0) {
+            setCurrentHP(previousHP + damage);
+        }
+    }
+
+    public Hero castSpell(Hero hero) {
+        return this;
+    }
+
+    public Hero useItem(Hero hero) {
+        return this;
+    }
 }

@@ -2,6 +2,7 @@ package com.games.hackandslash.model;
 
 import com.games.hackandslash.common.Category;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -16,6 +17,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Item {
     @Id
     @Basic(optional = false)
