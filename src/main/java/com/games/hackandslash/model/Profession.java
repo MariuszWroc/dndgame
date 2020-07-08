@@ -21,8 +21,8 @@ public class Profession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Integer strength;
-    private Integer dexterity;
-    private Integer constitution;
-    private Integer intelligence;
+    private int strength;
+    private int dexterity;
+    private int constitution;
+    private int intelligence;
 }

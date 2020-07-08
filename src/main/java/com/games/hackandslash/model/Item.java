@@ -29,13 +29,8 @@ public class Item {
     private String name;
     @Enumerated(EnumType.STRING)
     private Category category;
-    private Integer attack;
-    private Integer defend;
-    private Integer magic;
-    private Integer addHealth;
-    private Integer addStrength;
-    private Integer addDexterity;
-    private Integer addConstitution;
-    private Integer addIntelligence;
-    private Integer amount;
+    private int attack;
+    private int defend;
+    private int health;
+    private int amount;
 }

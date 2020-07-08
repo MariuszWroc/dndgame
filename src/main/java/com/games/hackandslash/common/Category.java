@@ -1,5 +1,5 @@
 package com.games.hackandslash.common;
 
 public enum Category {
-	CHARM, POTION, WEAPON, ARMOR, SHIELD
+	SPELL_HEALTH, SPELL_ATTACK, SPELL_DEFEND, POTION, WEAPON, ARMOR, SHIELD
 }

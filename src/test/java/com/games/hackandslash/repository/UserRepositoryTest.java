@@ -41,11 +41,7 @@ public class UserRepositoryTest {
     @BeforeEach
     public void setUp() {
         assertThat(userRepository, is(notNullValue()));
-        assertThat(insertAndGetUser(), is(notNullValue()));
-    }
-
-    public User insertAndGetUser() {
-        return userRepository.save(user);
+        assertThat(userRepository.save(user), is(notNullValue()));
     }
 
     @Test
