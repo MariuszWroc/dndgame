@@ -8,5 +8,4 @@ import com.games.hackandslash.model.Hero;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface HeroRepository extends PagingAndSortingRepository<Hero, Long>, QuerydslPredicateExecutor<Hero> {
-
 }

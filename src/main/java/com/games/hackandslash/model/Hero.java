@@ -31,7 +31,7 @@ public class Hero {
     private Long id;
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer speed;
+    private int speed;
     @Size(max = 45)
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
@@ -59,13 +59,19 @@ public class Hero {
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false, updatable = false))
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private List<Item> items = new ArrayList<>();
-    @Transient
+    @Column(columnDefinition = "integer default 0")
     private int additionalAttackPoints;
-    @Transient
+    @Column(columnDefinition = "integer default 0")
     private int additionalDefendPoints;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer finalAC;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer attackPoints;
 
 
-    public int countAttack() {
+    public void countAttack() {
         int weaponPoints = 0;
         Optional<Item> optionalWeapon = items.stream().filter(x -> x.getCategory().equals(WEAPON)).findFirst();
         if (optionalWeapon.isPresent()) {
@@ -73,10 +79,10 @@ public class Hero {
         }
 
         int strengthPoints = getProfession().getStrength();
-        return strengthPoints + weaponPoints + additionalAttackPoints;
+        attackPoints = strengthPoints + weaponPoints + additionalAttackPoints;
     }
 
-    public int countDefend() {
+    public void countDefend() {
         int armor = 0;
         int shield = 0;
         Optional<Item> optionalArmor = items.stream().filter(x -> x.getCategory().equals(ARMOR)).findFirst();
@@ -90,11 +96,11 @@ public class Hero {
             shield = optionalShield.get().getDefend();
         }
 
-        return getBaseAC() + armor + shield + additionalDefendPoints;
+        finalAC = baseAC + armor + shield + additionalDefendPoints;
     }
 
-    public void updateHealth(Integer attackerPoints) {
-        int damagePoints = attackerPoints - countDefend();
+    public void updateHealth(int attackerPoints) {
+        int damagePoints = attackerPoints - finalAC;
         if ((currentHP > 0) && (damagePoints > 0)) {
             currentHP = currentHP + damagePoints;
         }
@@ -110,9 +116,11 @@ public class Hero {
                 break;
             case SPELL_DEFEND:
                 additionalDefendPoints = item.getDefend();
+                countDefend();
                 break;
             case SPELL_ATTACK:
                 additionalAttackPoints = item.getAttack();
+                countAttack();
                 break;
         }
     }
